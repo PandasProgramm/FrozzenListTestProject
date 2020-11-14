@@ -14,7 +14,7 @@ import java.util.TreeSet;
 public class ProductService implements General_I<Product> {
 
     private static final String DATA_FILE_PRODUCT="product.db";
-    TreeSet<Product>products= new TreeSet<>();
+    TreeSet<Product>products;
 
     /**
      *
@@ -23,7 +23,7 @@ public class ProductService implements General_I<Product> {
     @Override
     public void add(Product product) {
     products.add(product);
-    saveToFile();
+        //TODO: SAVE
     }
 
     /**
@@ -38,29 +38,11 @@ public class ProductService implements General_I<Product> {
             product.setPieces(pieces);
         }
         products.remove(product);
-        saveToFile();
+        //TODO: SAVE
     }
 
     /**
      * save the product data
      */
-    @Override
-    public void saveToFile() {
-        try(ObjectOutputStream objectOutputStream= new ObjectOutputStream(new FileOutputStream(DATA_FILE_PRODUCT))){
-            objectOutputStream.writeObject(products);
-        }catch (IOException e){
-            //TODO: set message
-        }
-    }
-    /**
-     * load the product data
-     */
-    @Override
-    public void readFromFile() {
-        try(ObjectInputStream objectInputStream=new ObjectInputStream(new FileInputStream(DATA_FILE_PRODUCT))){
-            products=(TreeSet<Product>) objectInputStream.readObject();
-        }catch (IOException|ClassNotFoundException exception){
-            products= new TreeSet<>();
-        }
-    }
+
 }

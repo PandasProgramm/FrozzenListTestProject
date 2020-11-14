@@ -2,8 +2,9 @@ package data.freezer;
 
 import data.service.General_I;
 
-import java.io.*;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author  Created by Miguel Gutierrez on 11.11.2020
@@ -13,8 +14,8 @@ import java.util.HashSet;
  */
 public class FreezerService implements General_I<Freezer> {
 
-    private HashSet<Freezer>freezers= new HashSet<>();
-    private static final String DATA_FILE_FREEZER="freezer.db";
+    private Set<Freezer> freezers= new TreeSet<>();
+
 
     /**
      *
@@ -24,9 +25,11 @@ public class FreezerService implements General_I<Freezer> {
     @Override
     public void add(Freezer freezer) {
     freezers.add(freezer);
-    saveToFile();
+   //TODO: SAVE
     }
-
+    public void setFreezers(Set<Freezer> freezers) {
+        this.freezers = freezers;
+    }
     /**
      *
      * @param freezer: remove a freezer from a user
@@ -35,38 +38,21 @@ public class FreezerService implements General_I<Freezer> {
     @Override
     public void remove(Freezer freezer) {
         freezers.remove(freezer);
-        saveToFile();
+        //TODO: SAVE
+
     }
 
     /**
      *
      * @return all freezers from a user
      */
-    public HashSet<Freezer> getFreezers() {
-        return  new HashSet<Freezer>();
+    public Set<Freezer> getFreezers() {
+        return  new TreeSet<>();
     }
 
     /**
      * to save the freezer data
      */
-    @Override
-    public void saveToFile() {
-        try(ObjectOutputStream objectOutputStream= new ObjectOutputStream(new FileOutputStream(DATA_FILE_FREEZER))){
-            objectOutputStream.writeObject(freezers);
-        }catch (IOException exception){
-            //TODO:message
-        }
-    }
-    /**
-     * to load the freezer data
-     */
-    @Override
-    public void readFromFile() {
-        try(ObjectInputStream objectInputStream= new ObjectInputStream(new FileInputStream(DATA_FILE_FREEZER))){
-                objectInputStream.readObject();
-        }catch (IOException|ClassNotFoundException exception){
-            freezers= new HashSet<Freezer>();
-        }
-    }
+
 
 }

@@ -8,6 +8,5 @@ public interface General_I<T> {
 
     void add(T t);
     void remove(T t);
-    void saveToFile();
-    void readFromFile();
+
 }

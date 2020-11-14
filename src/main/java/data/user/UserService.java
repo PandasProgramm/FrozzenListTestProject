@@ -12,7 +12,6 @@ import java.util.TreeSet;
  */
 public class UserService implements ServiceI<User> {
 
-    private static final String DATA_FILE="data.db";
     private TreeSet<User>users= new TreeSet<>();
 
     /**
@@ -22,7 +21,7 @@ public class UserService implements ServiceI<User> {
     @Override
     public void add(User user) {
     users.add(user);
-    saveToFile();
+        //TODO: SAVE
     }
 
     /**
@@ -32,7 +31,7 @@ public class UserService implements ServiceI<User> {
     @Override
     public void remove(User user) {
         users.remove(user);
-        saveToFile();
+        //TODO: SAVE
     }
 
     /**
@@ -55,26 +54,10 @@ public class UserService implements ServiceI<User> {
     /**
      * save the changes
      */
-    @Override
-    public void saveToFile() {
-        try(ObjectOutputStream objectOutputStream= new ObjectOutputStream(new FileOutputStream(DATA_FILE))){
-            objectOutputStream.writeObject(users);
-        }catch (IOException ex){
-            //TODO: message
-        }
-    }
+
 
     /**
      * load the data
      */
-    @Override
-    public void readFromFile() {
 
-        try(ObjectInputStream objectInputStream= new ObjectInputStream(new FileInputStream(DATA_FILE))){
-            users = (TreeSet<User>) objectInputStream.readObject();
-        }catch (IOException | ClassNotFoundException ex){
-            //TODO: message
-            users=new TreeSet<User>();
-        }
-    }
 }

@@ -1,10 +1,11 @@
 package data.user;
 
 import data.freezer.Freezer;
-import data.freezer.FreezerService;
+import data.freezer.Tray;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  * @author Created by Miguel Gutierrez on 11.11.2020
  * @since 1.11
@@ -16,12 +17,13 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 482583513956011763L;
-    private String name;
+    private String userName;
     private String password;
-    private static int count;
-    private final int id;
-    private FreezerService freezers;
-    private int trayID;
+
+    private int userId;
+    private Freezer freezer;
+    private int freezerID;
+    private List<Tray> trayList= new ArrayList<>();
 
     /**
      *
@@ -29,16 +31,19 @@ public class User implements Serializable {
      * @param password for login
      */
     public User(String name, String password) {
-        this.name = name;
+        this.userName = name;
         this.password = password;
-        id=count+1;
-        count++;
+    }
+    public User(String name,int id){
+        this.userName = name;
+        this.userId=id;
     }
 
     /**
      * set number of user plus one
      */
-    public User(){this.id =count+1;}
+    public User(){}
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -49,7 +54,7 @@ public class User implements Serializable {
      * @return user name
      */
     public String getName() {
-        return name;
+        return userName;
     }
 
     /**
@@ -57,7 +62,15 @@ public class User implements Serializable {
      * @param name set user name
      */
     public void setName(String name) {
-        this.name = name;
+        this.userName = name;
+    }
+
+    public Freezer getFreezer() {
+        return freezer;
+    }
+
+    public void setFreezerID(int freezerID) {
+        this.freezerID = freezerID;
     }
 
     /**
@@ -76,24 +89,25 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
     @Override
     public boolean equals(Object object){
         if(this==object)return true;
         if(!(object instanceof User))return false;
 
         User user= (User)object;
-        if(this.id==user.id){
+        if(this.userId==user.userId){
             return true;
         }return false;
     }
-
     @Override
     public int hashCode() {
-     return id;
+     return userId;
     }
-
     @Override
     public String toString() {
-        return "name:";
+        return userName+"#";
     }
 }

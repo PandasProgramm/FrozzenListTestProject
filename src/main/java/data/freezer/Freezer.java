@@ -10,22 +10,25 @@ import java.util.TreeSet;
 public class Freezer implements Serializable {
 
     private static final long serialVersionUID = -7221585265587747653L;
-    private final int id;
-        Tray []trays;
+    private String name;
+    private  int freezerId;
+    private Tray []trays;
 
     /**
      *
      * @param id give the id of a freezer in dependency of the user
      * @param numberOfTray of a freezer
      */
-    public Freezer(int id,int numberOfTray) {
-        this.id = id;
+    public Freezer(int id,String name,int numberOfTray) {
+        this.name= name;
+        this.freezerId = id;
         this.trays = new Tray[numberOfTray];
         for(int i=0;i<trays.length;i++){
             trays[i]=new Tray((i+1));
         }
     }
 
-
-
+    public int getId() {
+        return freezerId;
+    }
 }

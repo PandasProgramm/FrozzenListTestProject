@@ -19,6 +19,7 @@ public class Product implements Serializable {
      */
 
     private static final long serialVersionUID = -5220159028566792859L;
+    private int productId;
     private final ProductTyp productTyp;
     private final String mark;
     private final String name;
@@ -50,7 +51,10 @@ public class Product implements Serializable {
         Period period= productTyp.getStorageLiveTimeOfProduct();
         expirationDate= freezingDate.plus(period);
     }
-
+    public Product(String mark,ProductTyp productTyp, String name,double amount,int id){
+        this(mark,productTyp,name,amount);
+        this.productId=id;
+    }
     /**
      *
      * @return the product type of the single product
@@ -118,5 +122,16 @@ public class Product implements Serializable {
     @Override
     public int hashCode() {
         return mark.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productTyp=" + productTyp +
+                ", mark='" + mark + '\'' +
+                ", name='" + name + '\'' +
+                ", pieces=" + pieces +
+                ", amount=" + amount +
+                '}';
     }
 }
