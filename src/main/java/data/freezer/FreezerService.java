@@ -1,10 +1,13 @@
 package data.freezer;
 
 import data.service.General_I;
+import data.service.moddle.objects.FreezerMapper;
 
-import java.util.HashSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * @author  Created by Miguel Gutierrez on 11.11.2020
@@ -15,17 +18,20 @@ import java.util.TreeSet;
 public class FreezerService implements General_I<Freezer> {
 
     private Set<Freezer> freezers= new TreeSet<>();
+    private FreezerMapper freezerMapper= new FreezerMapper();
 
 
     /**
-     *
      * @param freezer: add a freezer from a User
      * @link Freezer
      */
     @Override
     public void add(Freezer freezer) {
-    freezers.add(freezer);
-   //TODO: SAVE
+     try{
+         freezerMapper.save(freezer);
+     }catch (SQLException sqlException){
+         //TODO: message to fx
+     }
     }
     public void setFreezers(Set<Freezer> freezers) {
         this.freezers = freezers;
@@ -37,22 +43,25 @@ public class FreezerService implements General_I<Freezer> {
      */
     @Override
     public void remove(Freezer freezer) {
-        freezers.remove(freezer);
-        //TODO: SAVE
-
+        try {
+            freezerMapper.delete(freezer);
+        }catch (SQLException sqlException){
+            //TODO: message to fx
+        }
     }
-
     /**
      *
      * @return all freezers from a user
      */
     public Set<Freezer> getFreezers() {
-        return  new TreeSet<>();
+        Set<Freezer>freezers= new TreeSet<>();
+        List<Freezer> freezerList;
+        try {
+           freezerList=freezerMapper.findAll();
+           freezers=freezerList.stream().collect(Collectors.toSet());
+        }catch (SQLException sqlException){
+            //TODO: message to fx
+        }
+        return  freezers;
     }
-
-    /**
-     * to save the freezer data
-     */
-
-
 }

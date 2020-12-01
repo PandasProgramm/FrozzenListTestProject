@@ -1,7 +1,8 @@
 package data.user;
 
 import data.service.ServiceI;
-import java.io.*;
+import data.service.moddle.objects.UserMapper;
+
 import java.util.TreeSet;
 
 /**
@@ -10,7 +11,7 @@ import java.util.TreeSet;
  * User service for adding or removing a user
  * save settings after every operation
  */
-public class UserService implements ServiceI<User> {
+public class UserService extends UserMapper implements ServiceI<User> {
 
     private TreeSet<User>users= new TreeSet<>();
 
@@ -50,14 +51,5 @@ public class UserService implements ServiceI<User> {
     public TreeSet<User> getAll() {
         return null;
     }
-
-    /**
-     * save the changes
-     */
-
-
-    /**
-     * load the data
-     */
 
 }

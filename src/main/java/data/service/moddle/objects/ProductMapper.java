@@ -1,52 +1,49 @@
 package data.service.moddle.objects;
 
 import data.Product.Product;
-import data.service.moddle.AbstractMapper;
+import model.AbstractMapper;
+import model.DataBaseConnector;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.sql.Statement;
 
 /**
  * Created by Miguel Gutierrez on 13.11.2020
+ * TODO : WORKING ON THE DATABASESTRUCTURE
  */
 public class ProductMapper extends AbstractMapper<Product> {
     protected ProductMapper() {
         super("products");
     }
 
-    @Override
-    public Product findOneByID(int id) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public Product convert(ResultSet resultSet) throws SQLException {
-
-    }
-
-    @Override
-    public List<Product> findAll(int start, int num) throws SQLException {
-        throw new UnsupportedOperationException();
+        Product product= new Product();
+        product.setProductId(resultSet.getInt("productId"));
+        //product.setProductTyp(resultSet.g);
+        product.setMark(resultSet.getString("mark"));
+        product.setAmount(resultSet.getDouble("amount"));
+       // product.setDate(resultSet.getDate("freezingDate"));
+        //product expirationDate
+        return product;
     }
 
     @Override
     public boolean createTable() throws SQLException {
-
+      final String sql=  "SELECT * FROM products("
+                        +"productID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        +"NAME STRING VARCHAR(),NOT NULL"
+                        +"MARK STRING VARCHAR(),NOT NULL"
+                        +"AMOUNT DOUBLE,NOT NULL"
+                        +"FREEZINGDATE DATE,NOT NULL"
+                        +"EXPIRATIONDATE DATE,NOT NULL)";
+        try(Connection DBM= DataBaseConnector.get();
+            Statement statement= DBM.createStatement()){
+            return statement.executeUpdate(sql)>0;
+        }
     }
 
-    @Override
-    public boolean delete(Product product) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean update(Product product) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean insert(Product product) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
 }

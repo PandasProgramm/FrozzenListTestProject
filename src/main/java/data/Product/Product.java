@@ -1,16 +1,21 @@
-package data.Product;
-
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
 
 /**
  * @author Created by Miguel Gutierrez on 11.11.2020
  * @since 1.11
  */
-public class Product implements Serializable {
+
+package data.Product;
+
+import model.AbstractEntity;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
+import java.util.function.Supplier;
+
+
+public class Product extends AbstractEntity implements Comparable<Product>,Serializable {
 
     /**
      * every product have a mark,a product type a name, and a amount. For every product with the same entity of mark,
@@ -20,15 +25,15 @@ public class Product implements Serializable {
 
     private static final long serialVersionUID = -5220159028566792859L;
     private int productId;
-    private final ProductTyp productTyp;
-    private final String mark;
-    private final String name;
+    private  ProductTyp productTyp;
+    private  String mark;
+    private  String productName;
     private int pieces;
-    private final double amount;
+    private double amount;
 
-    private LocalDate freezingDate;
-    private LocalDate expirationDate;
-    private LocalTime inputTime;
+    private Supplier<LocalDate> freezingDate;
+    private Supplier<LocalDate> expirationDate;
+    private Supplier<LocalTime> inputTime;
 
     private LocalDateTime localDateTime;
 
@@ -40,21 +45,24 @@ public class Product implements Serializable {
      * @param amount of the product. Key entity
      */
     public Product(String mark,ProductTyp productTyp, String name,double amount) {
+
         this.productTyp = productTyp;
-        this.name = name;
+        this.productName = name;
         this.mark = mark;
         this.amount= amount;
 
-        freezingDate= LocalDate.now();
-        inputTime= LocalTime.now();
-        localDateTime= LocalDateTime.of(freezingDate,inputTime);
+        freezingDate= LocalDate::now;
+        inputTime= LocalTime::now;
+        localDateTime=LocalDateTime.of(freezingDate.get(),inputTime.get());
         Period period= productTyp.getStorageLiveTimeOfProduct();
-        expirationDate= freezingDate.plus(period);
+        expirationDate= ()->freezingDate.get().plus(period);
     }
     public Product(String mark,ProductTyp productTyp, String name,double amount,int id){
         this(mark,productTyp,name,amount);
         this.productId=id;
     }
+    public Product(){ }
+
     /**
      *
      * @return the product type of the single product
@@ -68,7 +76,7 @@ public class Product implements Serializable {
      * @return the name of the single product
      */
     public String getName() {
-        return name;
+        return productName;
     }
 
     /**
@@ -76,7 +84,7 @@ public class Product implements Serializable {
      * @return the storage date
      */
     public LocalDate getFreezingDate(){
-        return freezingDate;
+        return freezingDate.get();
     }
 
     /**
@@ -84,11 +92,15 @@ public class Product implements Serializable {
      * @return the expiration date for system warnings
      */
     public LocalDate getExpirationDate() {
-        return expirationDate;
+        return expirationDate.get();
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return productName.compareTo(o.productName);
     }
 
     /**
-     *
      * @param pieces in dependent of product keys for the number of the same product
      */
     public void setPieces(int pieces) {
@@ -97,8 +109,69 @@ public class Product implements Serializable {
 
     /**
      *
+     * @return
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public void setProductTyp(ProductTyp productTyp) {
+        this.productTyp = productTyp;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public void setName(String name) {
+        this.productName = name;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setFreezingDate(Supplier<LocalDate> freezingDate) {
+        this.freezingDate = freezingDate;
+    }
+
+    public void setExpirationDate(Supplier<LocalDate> expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public LocalTime getInputTime() {
+        return inputTime.get();
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    /**
+     *
      * @return the pieces of the same product
      */
+    //TODO: consistent
     public int getPieces(){
         return pieces;
     }
@@ -110,7 +183,7 @@ public class Product implements Serializable {
         if(this.mark== product.mark){
           if(this.productTyp==product.productTyp)
           {
-              if(this.name==product.name){
+              if(this.productName==product.productName){
                   if(this.amount==product.amount){
                       pieces++;
                       return true;
@@ -129,7 +202,7 @@ public class Product implements Serializable {
         return "Product{" +
                 "productTyp=" + productTyp +
                 ", mark='" + mark + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + productName + '\'' +
                 ", pieces=" + pieces +
                 ", amount=" + amount +
                 '}';

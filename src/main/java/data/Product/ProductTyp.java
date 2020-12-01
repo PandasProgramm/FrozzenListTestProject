@@ -7,6 +7,7 @@ import java.time.Period;
  * @since 1.11
  */
 public enum ProductTyp  {
+
     /**
      * a value for every product typ. Every type has a period of durability
      * The value has a standard period of 4 weeks

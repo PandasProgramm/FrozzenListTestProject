@@ -2,6 +2,7 @@ package data.user;
 
 import data.freezer.Freezer;
 import data.freezer.Tray;
+import model.AbstractEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,9 +15,10 @@ import java.util.List;
  * the count counts the number of userObjects e.g number of users.
  * Every user can set freezers and can have single trays of a freezer
  */
-public class User implements Serializable {
+public class User extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 482583513956011763L;
+
     private String userName;
     private String password;
 
@@ -25,6 +27,7 @@ public class User implements Serializable {
     private int freezerID;
     private List<Tray> trayList= new ArrayList<>();
 
+    private static int count;
     /**
      *
      * @param name for login
@@ -33,14 +36,17 @@ public class User implements Serializable {
     public User(String name, String password) {
         this.userName = name;
         this.password = password;
+        count++;
+        userId=count;
     }
     public User(String name,int id){
         this.userName = name;
         this.userId=id;
+        setId(userId);
     }
 
     /**
-     * set number of user plus one
+     * set number of user plus one => first user has the id 1
      */
     public User(){}
 
@@ -50,7 +56,7 @@ public class User implements Serializable {
     }
 
     /**
-     *
+     * entity of user
      * @return user name
      */
     public String getName() {
@@ -58,8 +64,8 @@ public class User implements Serializable {
     }
 
     /**
-     *
-     * @param name set user name
+     *entity is possible for changing
+     *@param name set user name
      */
     public void setName(String name) {
         this.userName = name;
@@ -89,9 +95,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+
     @Override
     public boolean equals(Object object){
         if(this==object)return true;
