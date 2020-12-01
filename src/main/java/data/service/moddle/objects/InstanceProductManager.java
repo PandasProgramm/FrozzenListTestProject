@@ -19,8 +19,9 @@ import java.util.function.Supplier;
 public class InstanceProductManager extends AbstractMapper<Product> {
 
 
-    protected InstanceProductManager(){
+    protected InstanceProductManager()throws SQLException{
         super("instanceProductManager");
+        createTable();
     }
 
     @Override

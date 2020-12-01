@@ -17,8 +17,13 @@ import java.util.List;
  */
 public class FreezerMapper extends AbstractMapper<Freezer> {
 
-    public FreezerMapper() {
+    public FreezerMapper(){
         super("freezers");
+        try{
+            createTable();
+        }catch (SQLException sqlException){
+            //TODO: message
+        }
     }
 
 

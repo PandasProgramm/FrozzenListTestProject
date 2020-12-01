@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="291.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.Main.Frozzen.List.LoginController">
+   <children>
+      <AnchorPane layoutX="13.0" layoutY="25.0" prefHeight="250.0" prefWidth="250.0">
+         <children>
+            <Button layoutX="74.0" layoutY="194.0" mnemonicParsing="false" onAction="#registration" prefHeight="25.0" prefWidth="100.0" text="Registrieren" />
+            <Button layoutX="192.0" layoutY="194.0" mnemonicParsing="false" onAction="#log" prefHeight="25.0" prefWidth="100.0" text="Login" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="14.0" prefHeight="38.0" prefWidth="218.0" text="Login" textAlignment="CENTER">
+               <font>
+                  <Font size="28.0" />
+               </font></Label>
+            <PasswordField fx:id="txtPassword" layoutX="74.0" layoutY="152.0" prefHeight="25" prefWidth="218" promptText="Passwort" />
+            <TextField fx:id="txtUserName" layoutX="74.0" layoutY="108.0" prefHeight="25" prefWidth="218.0" promptText="Nutzername" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

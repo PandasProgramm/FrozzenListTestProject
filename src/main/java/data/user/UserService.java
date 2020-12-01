@@ -3,7 +3,11 @@ package data.user;
 import data.service.ServiceI;
 import data.service.moddle.objects.UserMapper;
 
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * @author Created by Miguel Gutierrez on 11.11.2020
@@ -13,7 +17,10 @@ import java.util.TreeSet;
  */
 public class UserService extends UserMapper implements ServiceI<User> {
 
-    private TreeSet<User>users= new TreeSet<>();
+    private Set<User> users= new TreeSet<>();
+
+    public UserService() throws SQLException {
+    }
 
     /**
      *
@@ -22,7 +29,11 @@ public class UserService extends UserMapper implements ServiceI<User> {
     @Override
     public void add(User user) {
     users.add(user);
-        //TODO: SAVE
+    try{
+        save(user);
+    }catch (SQLException sqlException){
+        //TODO: message
+    }
     }
 
     /**
@@ -32,7 +43,11 @@ public class UserService extends UserMapper implements ServiceI<User> {
     @Override
     public void remove(User user) {
         users.remove(user);
-        //TODO: SAVE
+        try{
+        delete(user);
+        }catch (SQLException sqlException){
+            //TODO:message
+        }
     }
 
     /**
@@ -42,14 +57,28 @@ public class UserService extends UserMapper implements ServiceI<User> {
      */
     @Override
     public User getOne(int id) {
-        return null;
+
+        try {
+           User user= findOneByID(id);
+            return user;
+        } catch (SQLException sqlException) {
+            //TODO:message
+        }return null; //TODO: OPTIONAL USIGNG
     }
     /**
      * @return get all user TODO: gui
      */
     @Override
     public TreeSet<User> getAll() {
-        return null;
+     TreeSet<User>userTreeSet= new TreeSet<>();
+        try{
+            List<User> userList=findAll();
+            userList.stream().collect(Collectors.toSet()).forEach(user->userTreeSet.add(user));
+
+        }catch (SQLException sqlException){
+            //TODO: message
+        }return userTreeSet;
+
     }
 
 }

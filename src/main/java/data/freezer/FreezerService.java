@@ -28,6 +28,7 @@ public class FreezerService implements General_I<Freezer> {
     @Override
     public void add(Freezer freezer) {
      try{
+
          freezerMapper.save(freezer);
      }catch (SQLException sqlException){
          //TODO: message to fx

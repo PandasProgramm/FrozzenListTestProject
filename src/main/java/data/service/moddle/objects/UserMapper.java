@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 
 /**
@@ -18,10 +17,10 @@ import java.util.List;
 public class UserMapper extends AbstractMapper<User> {
 
 
-    public UserMapper() {
-       super("users");
+    public UserMapper()throws SQLException {
+        super("users");
+        createTable();
     }
-
 
 
     @Override
@@ -33,20 +32,18 @@ public class UserMapper extends AbstractMapper<User> {
         user.setFreezerID(resultSet.getInt("freezerID"));
         return user;
     }
-    @Override
-    public List<User> findAll(int start, int num) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
+
     @Override
     public boolean createTable() throws SQLException {
         final String sql= "CREATE TABLE IF NOT EXISTS users("
                 +"userId INTEGER PRIMARY KEY AUTOINCREMENT,"
                 +"USERNAME VARCHAR(20) NOT NULL,"
-                +"PASSWORD VARCHAR(15) NOT NULL"
-                +"freezerID INTEGER FOREIGN KEY AUTOINCREMENT)";
+                +"PASSWORD VARCHAR(15) NOT NULL,"
+                +"freezerID INTEGER,"
+                +"FOREIGN KEY(freezerID) REFERENCES freezers(freezerID)"
+                + ") ";
         try(Connection DBH= DataBaseConnector.get(); Statement statement= DBH.createStatement()){
             return  statement.executeUpdate(sql)>0;
         }
     }
-
 }

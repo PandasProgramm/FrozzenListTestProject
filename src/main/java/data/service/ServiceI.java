@@ -1,6 +1,6 @@
 package data.service;
 
-import java.util.Collections;
+import java.sql.SQLException;
 import java.util.TreeSet;
 
 /**
@@ -10,5 +10,5 @@ import java.util.TreeSet;
 public interface ServiceI<T>extends General_I<T> {
 
     T getOne(int id);
-    TreeSet<T> getAll();
+    TreeSet<T> getAll() throws SQLException;
 }

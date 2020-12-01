@@ -1,6 +1,5 @@
 package data.user;
 
-import data.freezer.Freezer;
 import data.freezer.Tray;
 import model.AbstractEntity;
 
@@ -23,7 +22,6 @@ public class User extends AbstractEntity implements Serializable {
     private String password;
 
     private int userId;
-    private Freezer freezer;
     private int freezerID;
     private List<Tray> trayList= new ArrayList<>();
 
@@ -71,9 +69,7 @@ public class User extends AbstractEntity implements Serializable {
         this.userName = name;
     }
 
-    public Freezer getFreezer() {
-        return freezer;
-    }
+
 
     public void setFreezerID(int freezerID) {
         this.freezerID = freezerID;
