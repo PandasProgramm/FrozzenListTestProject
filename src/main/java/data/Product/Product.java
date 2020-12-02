@@ -6,7 +6,7 @@
 
 package data.Product;
 
-import model.AbstractEntity;
+import data.service.model.AbstractEntity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

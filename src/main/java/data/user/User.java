@@ -1,7 +1,7 @@
 package data.user;
 
 import data.freezer.Tray;
-import model.AbstractEntity;
+import data.service.model.AbstractEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

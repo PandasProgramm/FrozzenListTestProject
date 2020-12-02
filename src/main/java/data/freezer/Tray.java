@@ -2,7 +2,7 @@ package data.freezer;
 
 import data.Product.Product;
 import data.Product.ProductTyp;
-import model.AbstractEntity;
+import data.service.model.AbstractEntity;
 
 import java.io.Serializable;
 import java.time.LocalDate;

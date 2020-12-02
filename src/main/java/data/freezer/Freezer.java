@@ -1,6 +1,6 @@
 package data.freezer;
 
-import model.AbstractEntity;
+import data.service.model.AbstractEntity;
 
 import java.io.Serializable;
 

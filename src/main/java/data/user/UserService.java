@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  * User service for adding or removing a user
  * save settings after every operation
  */
+
 public class UserService extends UserMapper implements ServiceI<User> {
 
     private Set<User> users= new TreeSet<>();

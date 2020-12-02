@@ -1,7 +1,7 @@
 package data.service.moddle.objects;
 
 import data.purchasing.list.PurchasingList;
-import model.AbstractMapper;
+import data.service.model.AbstractMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

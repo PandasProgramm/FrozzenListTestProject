@@ -1,8 +1,8 @@
 package data.service.moddle.objects;
 
 import data.freezer.Freezer;
-import model.AbstractMapper;
-import model.DataBaseConnector;
+import data.service.model.AbstractMapper;
+import data.service.model.DataBaseConnector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

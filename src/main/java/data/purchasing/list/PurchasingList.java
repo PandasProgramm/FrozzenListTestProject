@@ -1,6 +1,6 @@
 package data.purchasing.list;
 
-import model.AbstractEntity;
+import data.service.model.AbstractEntity;
 
 import java.io.Serializable;
 

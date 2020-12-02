@@ -11,6 +11,7 @@ import java.util.TreeSet;
  */
 public class ProductService implements General_I<Product> {
 
+
     private static final String DATA_FILE_PRODUCT="product.db";
     TreeSet<Product>products;
     /**
@@ -19,7 +20,7 @@ public class ProductService implements General_I<Product> {
     @Override
     public void add(Product product) {
     products.add(product);
-        //TODO: SAVE
+
     }
 
     /**
