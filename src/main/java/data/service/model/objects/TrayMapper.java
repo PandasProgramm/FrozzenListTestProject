@@ -15,9 +15,13 @@ import java.util.List;
  * TODO : WORKING ON THE DATABASESTRUCTURE
  */
 public class TrayMapper extends AbstractMapper<Tray> {
-    protected TrayMapper() throws SQLException{
+    protected TrayMapper() {
         super("trays");
-        createTable();
+        try{
+            createTable();
+        }catch (SQLException sqlException){
+            //TODO: message
+        }
     }
 
     @Override

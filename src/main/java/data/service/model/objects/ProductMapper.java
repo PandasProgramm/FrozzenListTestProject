@@ -16,6 +16,13 @@ import java.sql.Statement;
 public class ProductMapper extends AbstractMapper<Product> {
     protected ProductMapper() {
         super("products");
+        try
+        {
+            createTable();
+        }catch (SQLException sqlException){
+            //TODO: message
+        }
+
     }
 
 
@@ -33,7 +40,7 @@ public class ProductMapper extends AbstractMapper<Product> {
 
     @Override
     public boolean createTable() throws SQLException {
-      final String sql=  "SELECT * FROM products("
+      final String sql=  "CREATE TABLE IF NOT EXISTS products("
                         +"productID INTEGER PRIMARY KEY AUTOINCREMENT,"
                         +"NAME STRING VARCHAR(),NOT NULL"
                         +"MARK STRING VARCHAR(),NOT NULL"

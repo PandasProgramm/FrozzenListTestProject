@@ -85,7 +85,7 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
     }
 
     private boolean insert(T t) throws SQLException {
-        //INSERT INTO users (firstname, lastname) VALUES('Peter', 'Parker')
+
         StringBuilder fields = new StringBuilder();
         StringBuilder values = new StringBuilder();
 
