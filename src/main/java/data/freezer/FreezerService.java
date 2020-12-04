@@ -1,7 +1,7 @@
 package data.freezer;
 
 import data.service.General_I;
-import data.service.moddle.objects.FreezerMapper;
+import data.service.model.objects.FreezerMapper;
 
 import java.sql.SQLException;
 import java.util.List;

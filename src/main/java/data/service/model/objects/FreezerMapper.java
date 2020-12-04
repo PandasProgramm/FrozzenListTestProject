@@ -1,4 +1,4 @@
-package data.service.moddle.objects;
+package data.service.model.objects;
 
 import data.freezer.Freezer;
 import data.service.model.AbstractMapper;
@@ -43,8 +43,9 @@ public class FreezerMapper extends AbstractMapper<Freezer> {
     public boolean createTable() throws SQLException {
         final String sql = "CREATE TABLE IF NOT EXISTS freezers"
                          + "freezerId INTEGER PRIMARY KEY AUTOINCREMENT("
-                         + "NAME STRING VARCHAR(15) NOT NULL,";
-                      //    + "TRAYS "   ;
+                         + "NAME STRING VARCHAR(15) NOT NULL,"
+                         + "trayId INTEGER,"
+                         + "FOREIGN KEY(trayId) REFERENCES tray(trayId)";
         try(Connection connection= DataBaseConnector.get(); Statement statement= connection.createStatement()){
             return statement.executeUpdate(sql)>0;
         }

@@ -1,4 +1,4 @@
-package data.service.moddle.objects;
+package data.service.model.objects;
 
 import data.Product.Product;
 import data.service.model.AbstractMapper;
