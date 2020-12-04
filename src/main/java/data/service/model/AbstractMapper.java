@@ -13,12 +13,13 @@ import java.util.List;
 /**
  * Created by Miguel Gutierrez on 13.11.2020
  */
-public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper<T>{
+public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper<T> {
     protected final String TABLE;
 
     protected AbstractMapper(String table) {
         this.TABLE = table;
     }
+
     @Override
     public List<T> findAll(int start, int num) throws SQLException {
         List<T> list = new ArrayList<>();
@@ -29,11 +30,12 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
             statement.setInt(2, start);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                list.add(convert(resultSet));
+            list.add(convert(resultSet));
             }
         }
         return list;
     }
+
     @Override
     public List<T> findAll() throws SQLException {
 
@@ -48,10 +50,12 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
         }
         return list;
     }
+
     @Override
     public boolean delete(T t) throws SQLException {
         return delete(t.getId());
     }
+
     @Override
     public boolean delete(int id) throws SQLException {
         final String sql = "SELECT* FROM" + TABLE +
@@ -60,6 +64,7 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
             return statement.executeUpdate(sql) > 0;
         }
     }
+
     @Override
     public T findOneByID(int id) throws SQLException {
         final String sql = "SELECT *FROM" + TABLE + "WHERE id" + id;
@@ -71,14 +76,15 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
             return null;
         }
     }
+
     @Override
     public boolean save(T t) throws SQLException {
-        if(t.getId()>0){
+        if (t.getId() > 0) {
             return update(t);
-        }
-        else return insert(t);
+        } else return insert(t);
     }
-    private boolean insert(T t) throws SQLException{
+
+    private boolean insert(T t) throws SQLException {
         //INSERT INTO users (firstname, lastname) VALUES('Peter', 'Parker')
         StringBuilder fields = new StringBuilder();
         StringBuilder values = new StringBuilder();
@@ -103,10 +109,11 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
 
         return executePrepared(sql, t);
     }
-    private  boolean executePrepared(String sql, T t)throws SQLException{
-        try(Connection connection= DataBaseConnector.get();PreparedStatement statement= connection.prepareStatement(sql)){
-            int i=0;
-            for(Field f:t.getClass().getDeclaredFields()) {
+
+    protected boolean executePrepared(String sql, T t) throws SQLException {
+        try (Connection connection = DataBaseConnector.get(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            int i = 0;
+            for (Field f : t.getClass().getDeclaredFields()) {
                 if (f.getName().equals("serialVersionUID")) continue;
                 f.setAccessible(true);//macht private eigenschaften lesbar
                 try {
@@ -116,9 +123,10 @@ public abstract class AbstractMapper<T extends AbstractEntity> implements Mapper
                 }
             }
             statement.execute();
-            return statement.getUpdateCount()>0;
+            return statement.getUpdateCount() > 0;
         }
     }
+
     private boolean update(T t) throws SQLException {
         StringBuilder fields = new StringBuilder();
 

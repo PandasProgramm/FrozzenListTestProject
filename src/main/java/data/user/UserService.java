@@ -1,7 +1,7 @@
 package data.user;
 
 import data.service.ServiceI;
-import data.service.moddle.objects.UserMapper;
+import data.service.model.objects.UserMapper;
 
 import java.sql.SQLException;
 import java.util.List;

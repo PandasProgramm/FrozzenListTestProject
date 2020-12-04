@@ -1,4 +1,4 @@
-package data.service.moddle.objects;
+package data.service.model.objects;
 
 import data.freezer.Tray;
 import data.service.model.AbstractMapper;
@@ -32,9 +32,10 @@ public class TrayMapper extends AbstractMapper<Tray> {
     }
     @Override
     public boolean createTable() throws SQLException {
-        final String sql = "CREATE TABLE IF NOT EXISTS Tray("
-                          +"trayID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                          +"PRODUCTS VARCHAR";
+        final String sql = "CREATE TABLE IF NOT EXISTS tray("
+                          +"trayId INTEGER PRIMARY KEY AUTOINCREMENT,"
+                          +"PRODUCTID INTEGER,"
+                          +"FOREIGN KEY(productId) REFERENCES product(productId),";
         try(Connection DBH= DataBaseConnector.get(); Statement statement= DBH.createStatement()){
             return  statement.executeUpdate(sql)>0;
         }
